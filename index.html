@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>ちずでおぼえる とどうふけん｜全国版</title>
+<title>ちずでおぼえる とどうふけん｜にっぽん</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
@@ -126,6 +126,7 @@ body.view-region #regionLabels{display:none;}
   box-shadow:0 4px 0 var(--accent-deep);touch-action:manipulation;}
 .oki-arrow:active{transform:translateY(2px);box-shadow:0 2px 0 var(--accent-deep);}
 body:not(.view-overview) .oki-arrow{display:none;}
+body.view-overview #reset{display:none;}
 
 @media (prefers-reduced-motion: reduce){*{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition:none !important;}.pref.target{stroke:#d98a4f;stroke-width:3px;}}
 </style>
@@ -456,7 +457,6 @@ function renderOverview(){
     t.textContent=(regionDone.has(r.id)?'⭐':'')+r.kana;
     regionLabels.appendChild(t);
   });
-  resetBtn.textContent='ぜんぶ けす';
   peek=false;okiArrow.textContent='おきなわ ↙';
   tweenVB(FULLVB,520);
 }
@@ -569,7 +569,7 @@ okiArrow.addEventListener('click',()=>{if(!ac)ctx();peek?toMain():toOki();});
 card.querySelector('.close').addEventListener('click',hideCard);
 card.querySelector('.cardspeak').addEventListener('click',()=>{const p=PREFS.find(x=>x.kana===card.querySelector('.kana').textContent);if(p)speak(p.say);});
 celebrate.querySelector('.again').addEventListener('click',()=>setMode(mode));
-resetBtn.addEventListener('click',()=>{if(view==='region')setMode(mode);else{regionDone.clear();renderOverview();}});
+resetBtn.addEventListener('click',()=>{if(view==='region')setMode(mode);});
 const soundBtn=document.getElementById('sound');
 function reflectSound(){soundBtn.textContent=(soundOn?'🔊':'🔇')+' おと';soundBtn.classList.toggle('off',!soundOn);}
 soundBtn.addEventListener('click',()=>{soundOn=!soundOn;try{localStorage.setItem('tkk_prefmap_sound',soundOn?'on':'off');}catch(e){}reflectSound();if(!soundOn&&'speechSynthesis'in window)speechSynthesis.cancel();});
